@@ -28,6 +28,8 @@ The original project used a backend that is NOT connected here. Currently:
 - Template `package.json` kept (no supabase-js/drizzle deps). Tests pass (7/7).
 - Nothing from "Next steps" started yet — begin at step 1 (Enable Lovable Cloud). After enabling, the generated `src/integrations/supabase/*` + `attachSupabaseAuth` in `src/start.ts` will be recreated.
 - Paused due to credit limit.
+- Session 2: Lovable Cloud ENABLED. Migration `drizzle/migrations/0000_store_schema_and_seed.sql` created all tables (user_roles+has_role, products, product_variants, coupons [PETAL10, EID500 seeded], orders, order_items, order_status_history, wishlist) with RLS, and seeded 12 products × 192 variants. `productsQuery` now reads from the DB (verified /shop). STEP 1 DONE except: checkout still uses localStorage orders and client-side coupons (moves to step 3); wishlist still localStorage.
+- `src/start.ts` already registers `attachSupabaseAuth`. Next: step 2 (/auth page, email+Google+Lovable sign-in; call enable_email_auth + configure_social_auth).
 
 ## Next steps (in order)
 1. Enable Lovable Cloud; recreate tables (products, product_variants, orders, order_items, order_status_history, coupons, user_roles, wishlist) with RLS; seed from demo-products.json; switch `productsQuery` to the DB.
