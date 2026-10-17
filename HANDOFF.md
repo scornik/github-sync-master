@@ -23,6 +23,12 @@ The original project used a backend that is NOT connected here. Currently:
 ## Business rules (demo values — confirm with owner)
 `src/lib/checkout.ts`: inside Dhaka ৳70, outside ৳130, free from ৳5,000; coupons PETAL10 (10%), EID500 (৳500, min ৳3,000). Tests: `src/lib/checkout.test.ts` (`bunx vitest run`).
 
+## Session log (2026-10-17, 07:00 UTC)
+- Code imported into a fresh Lovable project (blank TanStack template) from this repo via the GitHub connector (tarball). Copied `src/` (excluding `src/integrations/supabase` and `src/start.ts`, which reference a backend not connected), AGENTS.md, plan, drizzle schema. `.env` and `supabase/config.toml` NOT copied.
+- Template `package.json` kept (no supabase-js/drizzle deps). Tests pass (7/7).
+- Nothing from "Next steps" started yet — begin at step 1 (Enable Lovable Cloud). After enabling, the generated `src/integrations/supabase/*` + `attachSupabaseAuth` in `src/start.ts` will be recreated.
+- Paused due to credit limit.
+
 ## Next steps (in order)
 1. Enable Lovable Cloud; recreate tables (products, product_variants, orders, order_items, order_status_history, coupons, user_roles, wishlist) with RLS; seed from demo-products.json; switch `productsQuery` to the DB.
 2. Auth page `/auth` + admin role (user_roles table + has_role function); point header icon to it.
