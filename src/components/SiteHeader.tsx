@@ -5,6 +5,7 @@ import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { BRAND } from "@/lib/brand";
 import { CATEGORIES, img } from "@/lib/catalog";
 import { useStore } from "@/lib/store";
+import { useSession } from "@/lib/use-session";
 
 const NAV = [
   { label: "New Arrivals", search: { sort: "newest" as const } },
@@ -21,13 +22,10 @@ export function SiteHeader() {
   const [mega, setMega] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [q, setQ] = useState("");
-  const [signedIn, setSignedIn] = useState(false);
+  const signedIn = !!useSession();
   const navigate = useNavigate();
   const count = cart.reduce((s, l) => s + l.qty, 0);
 
-  useEffect(() => {
-    setSignedIn(false);
-  }, []);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,7 +48,7 @@ export function SiteHeader() {
           </nav>
           <div className="ml-auto flex items-center gap-4">
             <button aria-label="Search" onClick={() => setSearchOpen((s) => !s)}><Search className="h-5 w-5" /></button>
-            <Link to="/" aria-label={signedIn ? "Account" : "Sign in"} className="hidden sm:block"><User className={`h-5 w-5 ${signedIn ? "fill-blush" : ""}`} /></Link>
+            <Link to="/auth" aria-label={signedIn ? "Account" : "Sign in"} className="hidden sm:block"><User className={`h-5 w-5 ${signedIn ? "fill-blush" : ""}`} /></Link>
             <Link to="/shop" search={{ wishlist: true }} aria-label="Wishlist" className="relative">
               <Heart className="h-5 w-5" />
               {wishlist.length > 0 && <span className="absolute -right-2 -top-2 grid h-4 min-w-4 place-items-center rounded-full bg-blush px-1 text-[10px]">{wishlist.length}</span>}
@@ -94,7 +92,7 @@ export function SiteHeader() {
               <Link key={n.label} to="/shop" search={n.search} onClick={() => setOpen(false)} className="border-b py-4 font-display text-xl">{n.label}</Link>
             ))}
             <Link to="/shop" search={{ sale: true }} onClick={() => setOpen(false)} className="border-b py-4 font-display text-xl text-destructive">Sale</Link>
-            <Link to="/" onClick={() => setOpen(false)} className="py-4 text-sm">{signedIn ? "My account" : "Sign in / Register"}</Link>
+            <Link to="/auth" onClick={() => setOpen(false)} className="py-4 text-sm">{signedIn ? "My account" : "Sign in / Register"}</Link>
           </nav>
         </SheetContent>
       </Sheet>
