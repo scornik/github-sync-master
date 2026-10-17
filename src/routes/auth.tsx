@@ -58,7 +58,7 @@ function AuthPage() {
       } else if (mode === "up") {
         const { error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: window.location.origin } });
         if (error) throw error;
-        toast.success("Check your email to confirm your account");
+        toast.success("Account created — you are signed in");
       } else {
         const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/reset-password` });
         if (error) throw error;
